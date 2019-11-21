@@ -1,0 +1,46 @@
+on: [push,pull_request]
+
+
+env:
+  AZURE_WEBAPP_NAME: frankdemo1121   # set this to your application's name
+  AZURE_GROUP_NAME: framkdemo2019
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    # checkout the repo
+    - uses: actions/checkout@master
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108 # Replace with specific dotnet core version
+
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Release -o myapp 
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - run: |
+        az group deployment create -name ghaction -g framkdemo2019 --template-file .\deployment\azuredepoy.json
+
+    # deploy web app using Azure credentials
+    - name: 'Azure webapp deploy'
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: './myapp' 
+
+    # Azure logout 
+    - name: logout
+      run: |
+        az logout
