@@ -4,6 +4,18 @@
   ],
   "imageSize": 100,
   "commit": false,
+  "types": {
+    "apps10": {
+      "symbol": "🏆APPS10",
+      "description": "Trained Presenter on APPS10.",
+      "link": "[<%= symbol %>](<%= url %> \"<%= description %>\"),"
+    },
+    "apps50": {
+      "symbol": "🏆APPS50",
+      "description": "Trained Presenter on APPS50.",
+      "link": "[<%= symbol %>](<%= url %> \"<%= description %>\"),"
+    }
+  },
   "contributors": [
     {
       "login": "FBoucher",
