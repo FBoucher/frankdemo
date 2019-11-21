@@ -1,4 +1,4 @@
 
 az group deployment validate -g framkdemo2019 --template-file .\deployment\azuredepoy.json
 
-az group deployment create -name ghaction -g framkdemo2019 --template-file .\deployment\azuredepoy.json
+az group deployment create -n ghaction -g framkdemo2019 --template-file .\deployment\azuredepoy.json
