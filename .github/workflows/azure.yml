@@ -20,7 +20,7 @@ jobs:
 
     - run: |
         az group create -n framkdemo2019 -l eastus
-        az group deployment create -n ghaction -g framkdemo2019 --template-file deployment/azuredepoy.json
+        az group deployment create -n ghaction -g framkdemo2019 --template-file deployment/azuredepoy.json --parameters myWebAppName=${{ env.AZURE_WEBAPP_NAME }}
 
 
 

@@ -1,26 +1,33 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "myWebAppName": {
+           "type": "string",
+           "metadata": {
+                "description": "WebAppName"
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
-            "name": "frankdemo1121",
+            "name": "[parameters('myWebAppName')]",
             "type": "Microsoft.Web/sites",
             "apiVersion": "2016-08-01",
             "location": "[resourceGroup().location]",
             "tags": {
                 "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/frankdemoplan')]": "Resource",
-                "displayName": "frankdemo1121"
+                "displayName": "[parameters('myWebAppName')]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', 'frankdemoplan')]"
             ],
             "properties": {
-                "name": "frankdemo1121",
+                "name": "[parameters('myWebAppName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'frankdemoplan')]"
             }
-        }  ,
+        },
         {
             "name": "frankdemoplan",
             "type": "Microsoft.Web/serverfarms",
